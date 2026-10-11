@@ -1,0 +1,31 @@
+# secrets / env
+.env
+.venv/
+venv/
+
+# python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# data 
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# local mentoring notes (Spanish). Public repo stays English.
+CONTEXT.md
+.cursor/
+
+# ide / os
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# airflow local 
+logs/
+airflow.db
