@@ -6,4 +6,4 @@ End-to-end data pipeline for Formula 1 data (portfolio project for an entry-leve
 
 ## Status
 
-In progress — project scaffolding.
+In progress. The 2024 season loads from the Jolpica API into staging and analytics. A pytest run fails if the data quality checks return any rows.
