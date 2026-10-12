@@ -1,6 +1,10 @@
 import json
+import logging
 import psycopg
 from src.config import DATABASE_URL, RAW_DIR, SEASON
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 def load_drivers() -> None:
   path = RAW_DIR / f"drivers_{SEASON}.json"
@@ -42,7 +46,7 @@ def load_drivers() -> None:
   with psycopg.connect(DATABASE_URL) as conn:
     with conn.cursor() as cursor:
       cursor.executemany(sql, rows)
-  print(f"Loaded {len(rows)} drivers")
+  logger.info(f"Loaded {len(rows)} drivers")
 
 def load_constructors() -> None:
   path = RAW_DIR / f"constructors_{SEASON}.json"
@@ -70,7 +74,7 @@ def load_constructors() -> None:
   with psycopg.connect(DATABASE_URL) as conn:
     with conn.cursor() as cursor:
       cursor.executemany(sql, rows)
-  print(f"Loaded {len(rows)} constructors")
+  logger.info(f"Loaded {len(rows)} constructors")
 
 def load_circuits() -> None:
   path = RAW_DIR / f"circuits_{SEASON}.json"
@@ -106,7 +110,7 @@ def load_circuits() -> None:
   with psycopg.connect(DATABASE_URL) as conn:
     with conn.cursor() as cursor:
       cursor.executemany(sql, rows)
-  print(f"Loaded {len(rows)} circuits")
+  logger.info(f"Loaded {len(rows)} circuits")
 
 def load_races() -> None:
   path = RAW_DIR / f"races_{SEASON}.json"
@@ -137,7 +141,7 @@ def load_races() -> None:
   with psycopg.connect(DATABASE_URL) as conn:
     with conn.cursor() as cursor:
       cursor.executemany(sql, rows)
-  print(f"Loaded {len(rows)} races")
+  logger.info(f"Loaded {len(rows)} races")
 
 def load_results() -> None:
   paths = sorted(
@@ -181,7 +185,7 @@ def load_results() -> None:
   with psycopg.connect(DATABASE_URL) as conn:
     with conn.cursor() as cursor:
       cursor.executemany(sql, rows)
-  print(f"Loaded {len(rows)} results")
+  logger.info(f"Loaded {len(rows)} results")
 
 def load_dim_drivers():
   sql = """
@@ -205,7 +209,7 @@ def load_dim_drivers():
   with psycopg.connect(DATABASE_URL) as conn:
     with conn.cursor() as cursor:
       cursor.execute(sql)
-  print("Loaded analytics.dim_drivers")
+  logger.info("Loaded analytics.dim_drivers")
 
 def load_dim_constructors():
   sql = """
@@ -223,7 +227,7 @@ def load_dim_constructors():
   with psycopg.connect(DATABASE_URL) as conn:
     with conn.cursor() as cursor:
       cursor.execute(sql)
-  print("Loaded analytics.dim_constructors")
+  logger.info("Loaded analytics.dim_constructors")
 
 def load_dim_circuits():
   sql = """
@@ -244,7 +248,7 @@ def load_dim_circuits():
   with psycopg.connect(DATABASE_URL) as conn:
     with conn.cursor() as cursor:
       cursor.execute(sql)
-    print("Loaded analytics.dim_circuits")
+    logger.info("Loaded analytics.dim_circuits")
 
 def load_dim_races():
   sql = """
@@ -263,7 +267,7 @@ def load_dim_races():
   with psycopg.connect(DATABASE_URL) as conn:
     with conn.cursor() as cursor:
       cursor.execute(sql)
-    print("Loaded analytics.dim_races")
+    logger.info("Loaded analytics.dim_races")
 
 def load_fact_results():
   sql = """
@@ -287,7 +291,7 @@ def load_fact_results():
   with psycopg.connect(DATABASE_URL) as conn:
     with conn.cursor() as cursor:
       cursor.execute(sql)
-    print("Loaded analytics.fact_results")
+    logger.info("Loaded analytics.fact_results")
 
 if __name__ == "__main__":
   load_drivers()
